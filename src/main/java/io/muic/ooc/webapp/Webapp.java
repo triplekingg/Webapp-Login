@@ -2,6 +2,8 @@ package io.muic.ooc.webapp;
 
 import java.io.File;
 import javax.servlet.ServletException;
+
+import jdk.internal.net.http.common.Log;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
@@ -15,12 +17,12 @@ public class Webapp {
         Tomcat tomcat = new Tomcat();
         tomcat.setPort(8082);
 
-        Context ctx;
+
         try {
-            ctx = tomcat.addWebapp("", docBase.getAbsolutePath());
-            AdminServlet adminServlet = new AdminServlet();
-            Tomcat.addServlet(ctx, "AdminServlet", adminServlet);
-            ctx.addServletMapping("/admin", "AdminServlet");
+            Context ctx = tomcat.addWebapp("", docBase.getAbsolutePath());
+            LoginServlet loginServlet = new LoginServlet();
+            Tomcat.addServlet(ctx, LoginServlet.class.getSimpleName(), loginServlet);
+            ctx.addServletMapping("/login", LoginServlet.class.getSimpleName());
 
             HomeServlet homeServlet = new HomeServlet();
             Tomcat.addServlet(ctx, "HomeServlet", homeServlet);
