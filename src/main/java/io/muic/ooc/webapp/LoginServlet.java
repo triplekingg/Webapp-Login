@@ -12,7 +12,7 @@ import java.io.IOException;
  *
  * @author gigadot
  */
-public class LoginServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet implements Routable{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,5 +40,10 @@ public class LoginServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/login.jsp");
             requestDispatcher.include(request,response);
         }
+    }
+
+    @Override
+    public String getPattern() {
+        return "/login";
     }
 }

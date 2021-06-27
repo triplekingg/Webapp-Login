@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class
-HomeServlet extends HttpServlet {
+HomeServlet extends HttpServlet implements Routable{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,5 +29,10 @@ HomeServlet extends HttpServlet {
         }
 
 
+    }
+
+    @Override
+    public String getPattern() {
+        return "/index.jsp";
     }
 }

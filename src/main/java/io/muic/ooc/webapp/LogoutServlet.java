@@ -12,7 +12,7 @@ import java.io.IOException;
  *
  * @author gigadot
  */
-public class LogoutServlet extends HttpServlet {
+public class LogoutServlet extends HttpServlet implements Routable{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -21,5 +21,10 @@ public class LogoutServlet extends HttpServlet {
         session.invalidate();
 
         response.sendRedirect("/");
+    }
+
+    @Override
+    public String getPattern() {
+        return "/logout";
     }
 }
