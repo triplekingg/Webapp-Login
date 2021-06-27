@@ -12,7 +12,7 @@ import java.io.IOException;
  *
  * @author gigadot
  */
-public class LoginServlet extends HttpServlet implements Routable{
+public class LoginServlet extends AbstractRoutableHttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
