@@ -3,7 +3,6 @@ package io.muic.ooc.webapp;
 import java.io.File;
 import javax.servlet.ServletException;
 
-import jdk.internal.net.http.common.Log;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
