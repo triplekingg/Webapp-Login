@@ -1,26 +1,36 @@
-package io.muic.ooc.webapp;
+package io.muic.ooc.webapp.servlets;
 
+import io.muic.ooc.webapp.security.SecurityService;
+import io.muic.ooc.webapp.security.UserService;
+import io.muic.ooc.webapp.servlets.AbstractRoutableHttpServlet;
+import io.muic.ooc.webapp.servlets.HomeServlet;
+import io.muic.ooc.webapp.servlets.LoginServlet;
+import io.muic.ooc.webapp.servlets.LogoutServlet;
 import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
 
-import javax.servlet.http.HttpServlet;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ServletRouter {
 
-    private static final List<Class<? extends AbstractRoutableHttpServlet>> servletClasses = new ArrayList<>();
-    static {
+    private  final List<Class<? extends AbstractRoutableHttpServlet>> servletClasses = new ArrayList<>();
+    {
         servletClasses.add(HomeServlet.class);
         servletClasses.add(LoginServlet.class);
         servletClasses.add(LogoutServlet.class);
     }
 
     public void init(Context ctx){
+        UserService userService = new UserService();
+        SecurityService securityService = new SecurityService();
+        securityService.setUserService(userService);
+
         for(Class<? extends AbstractRoutableHttpServlet> servletClass:servletClasses){
             try {
                 AbstractRoutableHttpServlet httpServlet = servletClass.getDeclaredConstructor().newInstance();
+                httpServlet.setSecurityService(securityService);
                 Tomcat.addServlet(ctx, servletClass.getSimpleName(), httpServlet);
                 ctx.addServletMapping(httpServlet.getPattern(), servletClass.getSimpleName());
             } catch (InstantiationException e) {
