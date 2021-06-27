@@ -28,6 +28,10 @@ public class Webapp {
             // TRICK: mapping with index.jsp, allow access to root path "/"
             ctx.addServletMapping("/index.jsp", "HomeServlet");
 
+            LogoutServlet logoutServlet = new LogoutServlet();
+            Tomcat.addServlet(ctx, LogoutServlet.class.getSimpleName(), logoutServlet);
+            ctx.addServletMapping("/logout", LogoutServlet.class.getSimpleName());
+
             tomcat.start();
             tomcat.getServer().await();
         } catch (ServletException | LifecycleException ex) {
