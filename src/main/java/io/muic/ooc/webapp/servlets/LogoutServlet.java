@@ -18,11 +18,6 @@ public class LogoutServlet extends AbstractRoutableHttpServlet{
         securityService.logout(request);
         response.sendRedirect("/");
     }
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/logout.jsp");
-        requestDispatcher.include(request, response);
-    }
 
     @Override
     public String getPattern() {

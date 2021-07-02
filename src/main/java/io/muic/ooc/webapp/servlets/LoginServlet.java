@@ -21,7 +21,6 @@ public class LoginServlet extends AbstractRoutableHttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String error = "";
-
         //check if user is a valid user
         if(securityService.login(request)){
             response.sendRedirect("/");

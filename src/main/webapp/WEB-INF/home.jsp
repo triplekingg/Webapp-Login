@@ -6,7 +6,7 @@
     Hello ${username}
 </h2>
 <p>
-<form action="/logout" method="post">
+<form action="/logout" method="get">
     <button type="submit">Logout</button>
 </form>
 </p>
