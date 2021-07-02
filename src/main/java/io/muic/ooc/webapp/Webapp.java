@@ -1,8 +1,10 @@
 package io.muic.ooc.webapp;
 
 import java.io.File;
+import java.sql.Connection;
 import javax.servlet.ServletException;
 
+import io.muic.ooc.webapp.security.Database;
 import io.muic.ooc.webapp.servlets.ServletRouter;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
