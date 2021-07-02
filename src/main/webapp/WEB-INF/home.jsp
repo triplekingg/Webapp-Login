@@ -5,5 +5,10 @@
 <h2>
     Hello ${username}
 </h2>
+<p>
+<form action="/logout" method="post">
+    <button type="submit">Logout</button>
+</form>
+</p>
 </body>
 </html>
