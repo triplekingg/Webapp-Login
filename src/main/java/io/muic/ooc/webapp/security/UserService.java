@@ -1,15 +1,20 @@
 package io.muic.ooc.webapp.security;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserService {
+public class UserService extends Database{
     private Map<String,User> users =  new HashMap<>();
-    {
-        users.put("tripleking",new User("tripleking", "12345"));
-        users.put("admin",new User("admin","12345"));
+
+    public UserService(){
+        try {
+            returnHashmap(users);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     public User findByUsername(String username){
