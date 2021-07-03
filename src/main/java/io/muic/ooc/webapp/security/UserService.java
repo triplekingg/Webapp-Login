@@ -10,9 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class UserService extends Database{
-    private Map<String,User> users =  new HashMap<>();
-
-
+    List<String> user = new ArrayList<>();
 
     public User findByUsername(String username){
         String sql = "SELECT * FROM User_List as u WHERE u.user_id ='"+username+"'";
@@ -41,6 +39,16 @@ public class UserService extends Database{
         }
         return false;
     }
+
+    public List<String> UserTable(){
+        try {
+            return  returnUserList(user);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
 
 
 

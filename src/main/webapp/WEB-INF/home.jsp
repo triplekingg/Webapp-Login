@@ -11,7 +11,8 @@
     Hello ${username}
 </h2>
 <h3>
-    Here are the list of users
+    Here are the list of users:
+    ${users}
 </h3>
 <h4>
 

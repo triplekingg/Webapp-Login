@@ -1,6 +1,7 @@
 package io.muic.ooc.webapp.security;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +9,7 @@ import java.util.Map;
 public class Database {
 
 
-    public Connection connect(){
+    public static Connection connect(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con= DriverManager.getConnection(
@@ -40,7 +41,8 @@ public class Database {
 //        return  users;
 //    }
 
-    public List<String> returnUserList(List user_list) throws SQLException {
+
+    public static List<String> returnUserList(List user_list) throws SQLException {
         String sql = "select * from User_List";
         Connection con = connect();
         Statement stmt=con.createStatement();
@@ -51,23 +53,27 @@ public class Database {
         return user_list;
     }
 
+    public static String tableToString(){
+        List<String> users = new ArrayList<>();
+        try {
+            users = returnUserList(users);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        StringBuilder s = new StringBuilder();
+
+        s.append(String.format("%-20s\n","Users"));
+        s.append(String.format("===================\n"));
+        for(String username : users) {
+            s.append(String.format("%-20s",username));
+        }
+        return s.toString();
+    }
+
 
 //    public static void main(String[] args) {
 //        try{
-//            String u = "t";
-//            String sql = "SELECT * FROM User_List as u WHERE u.user_id ='"+u+"'";
-//            Connection con = connect();
-//            Statement stmt=con.createStatement();
-//            ResultSet rs=stmt.executeQuery(sql);
-//            if(rs.next()==false){
-//                System.out.println("false");
-//            }
-//            else{
-//                System.out.println("True");
-//            }
-//            while(rs.next())
-//                System.out.println(rs.getInt(1)+"  "+rs.getString(3)+"  "+rs.getString(4));
-//            con.close();
+//            System.out.println(tableToString());
 //        }catch(Exception e){ System.out.println(e);}
 //    }
 }
