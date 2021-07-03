@@ -3,9 +3,14 @@ package io.muic.ooc.webapp.security;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class SecurityService {
+
+    private Database db;
 
     private UserService userService;
 

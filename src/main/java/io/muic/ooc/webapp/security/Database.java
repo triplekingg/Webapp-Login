@@ -2,6 +2,7 @@ package io.muic.ooc.webapp.security;
 
 import java.sql.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Database {
@@ -17,23 +18,37 @@ public class Database {
         catch(Exception e){ return null;}
     }
 
-//    public boolean ifExists(String user) throws SQLException {
-//        String sql = "SELECT * FROM User_List as u WHERE u.user_id ='"+user+"'";
+    public boolean ifExists(String user) throws SQLException {
+        String sql = "SELECT * FROM User_List as u WHERE u.user_id ='"+user+"'";
+        Connection con = connect();
+        Statement stmt=con.createStatement();
+        ResultSet rs=stmt.executeQuery(sql);
+        return rs.next();
+    }
+
+
+
+
+//    public Map<String,User> returnHashmap(Map<String,User> users) throws SQLException {
+//        String sql = "select * from User_List";
 //        Connection con = connect();
 //        Statement stmt=con.createStatement();
 //        ResultSet rs=stmt.executeQuery(sql);
-//        return rs.next();
+//        while(rs.next()){
+//            users.put(rs.getString(1), new User(rs.getString(1),rs.getString(2)));
+//        }
+//        return  users;
 //    }
 
-    public Map<String,User> returnHashmap(Map<String,User> users) throws SQLException {
+    public List<String> returnUserList(List user_list) throws SQLException {
         String sql = "select * from User_List";
         Connection con = connect();
         Statement stmt=con.createStatement();
         ResultSet rs=stmt.executeQuery(sql);
-        while(rs.next()){
-            users.put(rs.getString(1), new User(rs.getString(1),rs.getString(2)));
+        while (rs.next()){
+            user_list.add(rs.getString(1));
         }
-        return  users;
+        return user_list;
     }
 
 

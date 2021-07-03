@@ -2,13 +2,20 @@
 <html>
 <title>Home Page</title>
 <body>
-<h2>
-    Hello ${username}
-</h2>
 <p>
 <form action="/logout" method="get">
     <button type="submit">Logout</button>
 </form>
 </p>
+<h2>
+    Hello ${username}
+</h2>
+<h3>
+    Here are the list of users
+</h3>
+<h4>
+
+</h4>
+
 </body>
 </html>
