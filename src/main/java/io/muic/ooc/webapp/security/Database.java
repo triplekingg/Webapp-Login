@@ -1,10 +1,9 @@
 package io.muic.ooc.webapp.security;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Database {
 
@@ -52,6 +51,18 @@ public class Database {
         }
         return user_list;
     }
+
+    public static void create_user(String username, String password, Statement smt){
+        String sql = "INSERT INTO User_List(username, password)" + "VALUES ("+"\'"+username+"\'"+","+"\'"+password+"\'"+")";
+        try {
+            smt.executeUpdate(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+
+    //Function to display a list of users
 
     public static String tableToString(){
         List<String> users = new ArrayList<>();
