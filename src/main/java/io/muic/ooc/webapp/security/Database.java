@@ -52,12 +52,33 @@ public class Database {
         return user_list;
     }
 
-    public static void create_user(String username, String password, Statement smt){
+    public static void create_user(String username, String password){
         String sql = "INSERT INTO User_List(username, password)" + "VALUES ("+"\'"+username+"\'"+","+"\'"+password+"\'"+")";
+        Connection con = connect();
+        Statement smt= null;
+        try {
+            smt = con.createStatement();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         try {
             smt.executeUpdate(sql);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }
+    }
+
+    public static boolean addUser(HttpServletRequest request){
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        UserService userService = new UserService();
+        User user = userService.findByUsername(username);
+        if(user!=null && Objects.equals(user.getPassword(),password)){
+            create_user(username,password);
+            return true;
+        }
+        else {
+            return false;
         }
     }
 

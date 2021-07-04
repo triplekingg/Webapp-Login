@@ -12,16 +12,12 @@ import java.util.Map;
 public class UserService extends Database{
     List<String> user = new ArrayList<>();
 
-    public User findByUsername(String username){
+    public static User findByUsername(String username){
         String sql = "SELECT * FROM User_List as u WHERE u.user_id ='"+username+"'";
         Connection con = connect();
-        Statement stmt= null;
+        Statement stmt;
         try {
             stmt = con.createStatement();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        try {
             ResultSet rs=stmt.executeQuery(sql);
             rs.next();
             return new User(rs.getString(1),rs.getString(2));
