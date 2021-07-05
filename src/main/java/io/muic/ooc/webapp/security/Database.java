@@ -8,21 +8,22 @@ import java.util.*;
 public class Database {
 
 
-    public  Connection connect(){
+    public  ResultSet getResultSet(String sql){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con= DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/User_Details","hw4","Tripleking123");
-            return con;
+            Statement stmt=con.createStatement();
+            ResultSet rs=stmt.executeQuery(sql);
+            return rs;
         }
         catch(Exception e){ return null;}
     }
 
+
     public boolean ifExists(String user) throws SQLException {
         String sql = "SELECT * FROM User_List as u WHERE u.user_id ='"+user+"'";
-        Connection con = connect();
-        Statement stmt=con.createStatement();
-        ResultSet rs=stmt.executeQuery(sql);
+        ResultSet rs=getResultSet(sql);
         return rs.next();
     }
 
@@ -43,9 +44,7 @@ public class Database {
 
     public List<String> returnUserList(List user_list) throws SQLException {
         String sql = "select * from User_List";
-        Connection con = connect();
-        Statement stmt=con.createStatement();
-        ResultSet rs=stmt.executeQuery(sql);
+        ResultSet rs=getResultSet(sql);
         while (rs.next()){
             user_list.add(rs.getString(1));
         }

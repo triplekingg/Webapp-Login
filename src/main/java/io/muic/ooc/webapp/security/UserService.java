@@ -15,15 +15,8 @@ public class UserService{
 
     public User findByUsername(String username){
         String sql = "SELECT * FROM User_List as u WHERE u.user_id ='"+username+"'";
-        Connection con = db.connect();
-        Statement stmt= null;
         try {
-            stmt = con.createStatement();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        try {
-            ResultSet rs=stmt.executeQuery(sql);
+            ResultSet rs=db.getResultSet(sql);
             rs.next();
             return new User(rs.getString(1),rs.getString(2));
         } catch (SQLException throwables) {
