@@ -22,9 +22,7 @@
     ${users}
 </h3>
 <h4>
-    <form action="/add_user" method="get">
-        <button type="submit">Click here to create a new user</button>
-    </form>
+    
 </h4>
 
 </body>

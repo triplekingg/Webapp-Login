@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 public class UserService{
-    Database db = new Database();
+    private Database db = new Database();
+    private SecurityService securityService = new SecurityService();
 
     public User findByUsername(String username){
         String sql = "SELECT * FROM User_List as u WHERE u.user_id ='"+username+"'";

@@ -14,8 +14,13 @@ public class AddUserServlet extends AbstractRoutableHttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/add_user.jsp");
-        requestDispatcher.include(request,response);
+        if(securityService.isAuthorized(request)){
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/add_user.jsp");
+            requestDispatcher.include(request,response);
+        }
+        else{
+            response.sendRedirect("/login");
+        }
     }
 
     @Override

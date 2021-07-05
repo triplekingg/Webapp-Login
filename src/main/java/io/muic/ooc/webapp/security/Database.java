@@ -20,7 +20,7 @@ public class Database {
         catch(Exception e){ return null;}
     }
 
-    public  Statement getStatement(String sql){
+    public Statement getStatement(String sql){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con= DriverManager.getConnection(
