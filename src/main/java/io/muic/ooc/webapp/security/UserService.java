@@ -9,15 +9,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserService extends Database{
+public class UserService{
     List<String> user = new ArrayList<>();
+    Database db = new Database();
 
-    public static User findByUsername(String username){
+    public User findByUsername(String username){
         String sql = "SELECT * FROM User_List as u WHERE u.user_id ='"+username+"'";
-        Connection con = connect();
-        Statement stmt;
+        Connection con = db.connect();
+        Statement stmt= null;
         try {
             stmt = con.createStatement();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        try {
             ResultSet rs=stmt.executeQuery(sql);
             rs.next();
             return new User(rs.getString(1),rs.getString(2));
@@ -29,7 +34,7 @@ public class UserService extends Database{
 
     public boolean checkIfUserExists(String username){
         try {
-            return ifExists(username);
+            return db.ifExists(username);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -38,7 +43,7 @@ public class UserService extends Database{
 
     public List<String> UserTable(){
         try {
-            return  returnUserList(user);
+            return  db.returnUserList(user);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

@@ -1,5 +1,6 @@
 package io.muic.ooc.webapp.servlets;
 
+import io.muic.ooc.webapp.security.Database;
 import io.muic.ooc.webapp.security.SecurityService;
 import io.muic.ooc.webapp.security.UserService;
 import io.muic.ooc.webapp.servlets.AbstractRoutableHttpServlet;
@@ -27,11 +28,13 @@ public class ServletRouter {
         UserService userService = new UserService();
         SecurityService securityService = new SecurityService();
         securityService.setUserService(userService);
+        Database database = new Database();
 
         for(Class<? extends AbstractRoutableHttpServlet> servletClass:servletClasses){
             try {
                 AbstractRoutableHttpServlet httpServlet = servletClass.getDeclaredConstructor().newInstance();
                 httpServlet.setSecurityService(securityService);
+                httpServlet.setDatabase(database);
                 Tomcat.addServlet(ctx, servletClass.getSimpleName(), httpServlet);
                 ctx.addServletMapping(httpServlet.getPattern(), servletClass.getSimpleName());
             } catch (InstantiationException e) {

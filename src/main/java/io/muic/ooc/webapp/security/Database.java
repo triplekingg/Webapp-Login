@@ -8,7 +8,7 @@ import java.util.*;
 public class Database {
 
 
-    public static Connection connect(){
+    public  Connection connect(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con= DriverManager.getConnection(
@@ -41,7 +41,7 @@ public class Database {
 //    }
 
 
-    public static List<String> returnUserList(List user_list) throws SQLException {
+    public List<String> returnUserList(List user_list) throws SQLException {
         String sql = "select * from User_List";
         Connection con = connect();
         Statement stmt=con.createStatement();
@@ -85,7 +85,7 @@ public class Database {
 
     //Function to display a list of users
 
-    public static String tableToString(){
+    public String tableToString(){
         List<String> users = new ArrayList<>();
         try {
             users = returnUserList(users);

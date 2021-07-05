@@ -13,4 +13,7 @@ public abstract class AbstractRoutableHttpServlet extends HttpServlet implements
     public void setSecurityService(SecurityService securityService) {
         this.securityService = securityService;
     }
+    public void setDatabase(Database database) {
+        this.database = database;
+    }
 }
