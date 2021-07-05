@@ -21,14 +21,6 @@ public class Database {
     }
 
 
-    public boolean ifExists(String user) throws SQLException {
-        String sql = "SELECT * FROM User_List as u WHERE u.user_id ='"+user+"'";
-        ResultSet rs=getResultSet(sql);
-        return rs.next();
-    }
-
-
-
 
 //    public Map<String,User> returnHashmap(Map<String,User> users) throws SQLException {
 //        String sql = "select * from User_List";
@@ -42,14 +34,14 @@ public class Database {
 //    }
 
 
-    public List<String> returnUserList(List user_list) throws SQLException {
-        String sql = "select * from User_List";
-        ResultSet rs=getResultSet(sql);
-        while (rs.next()){
-            user_list.add(rs.getString(1));
-        }
-        return user_list;
-    }
+//    public List<String> returnUserList(List user_list) throws SQLException {
+//        String sql = "select * from User_List";
+//        ResultSet rs=getResultSet(sql);
+//        while (rs.next()){
+//            user_list.add(rs.getString(1));
+//        }
+//        return user_list;
+//    }
 
     public static void create_user(String username, String password){
         String sql = "INSERT INTO User_List(username, password)" + "VALUES ("+"\'"+username+"\'"+","+"\'"+password+"\'"+")";
@@ -84,22 +76,22 @@ public class Database {
 
     //Function to display a list of users
 
-    public String tableToString(){
-        List<String> users = new ArrayList<>();
-        try {
-            users = returnUserList(users);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        StringBuilder s = new StringBuilder();
-
-        s.append(String.format("%-20s\n","Users"));
-        s.append(String.format("===================\n"));
-        for(String username : users) {
-            s.append(String.format("%-20s",username));
-        }
-        return s.toString();
-    }
+//    public String tableToString(){
+//        List<String> users = new ArrayList<>();
+//        try {
+//            users = returnUserList(users);
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//        StringBuilder s = new StringBuilder();
+//
+//        s.append(String.format("%-20s\n","Users"));
+//        s.append(String.format("===================\n"));
+//        for(String username : users) {
+//            s.append(String.format("%-20s",username));
+//        }
+//        return s.toString();
+//    }
 
 
 //    public static void main(String[] args) {

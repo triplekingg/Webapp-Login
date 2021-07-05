@@ -19,10 +19,15 @@ public class SecurityService {
     }
 
     public boolean isAuthorized(HttpServletRequest request) {
-        HttpSession session = request.getSession();
         String username = getCurrentUsername(request);
-        return userService.checkIfUserExists(username);
+        try {
+            return userService.checkIfUserExists(username);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
+    
     public String getCurrentUsername(HttpServletRequest request){
         HttpSession session = request.getSession();
         Object usernameObject = session.getAttribute("username");
