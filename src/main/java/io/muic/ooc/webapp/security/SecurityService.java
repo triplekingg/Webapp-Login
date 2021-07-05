@@ -9,9 +9,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class SecurityService {
-
-    private Database db;
-
     private UserService userService;
 
     public void setUserService(UserService userService) {
@@ -27,29 +24,28 @@ public class SecurityService {
         }
         return false;
     }
-    
-    public String getCurrentUsername(HttpServletRequest request){
+
+    public String getCurrentUsername(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Object usernameObject = session.getAttribute("username");
         return (String) usernameObject;
     }
 
-    public void logout(HttpServletRequest request){
+    public void logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.removeAttribute("username");
         session.invalidate();
     }
 
-    public boolean login(HttpServletRequest request){
+    public boolean login(HttpServletRequest request) {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         User user = userService.findByUsername(username);
-        if(user!=null && Objects.equals(user.getPassword(),password)){
+        if (user != null && Objects.equals(user.getPassword(), password)) {
             HttpSession session = request.getSession();
             session.setAttribute("username", username);
             return true;
-        }
-        else {
+        } else {
             return false;
         }
 

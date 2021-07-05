@@ -3,6 +3,9 @@
 <title>Home Page</title>
 <body>
 <p>
+    Create a New User
+</p>
+<p>
     ${error}
 </p>
 <p>

@@ -20,6 +20,17 @@ public class Database {
         catch(Exception e){ return null;}
     }
 
+    public  Statement getStatement(String sql){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con= DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/User_Details","hw4","Tripleking123");
+            Statement stmt=con.createStatement();
+            return stmt;
+        }
+        catch(Exception e){ return null;}
+    }
+
 
 
 //    public Map<String,User> returnHashmap(Map<String,User> users) throws SQLException {
@@ -43,33 +54,12 @@ public class Database {
 //        return user_list;
 //    }
 
-    public static void create_user(String username, String password){
+    public void create_user(String username, String password, Statement smt){
         String sql = "INSERT INTO User_List(username, password)" + "VALUES ("+"\'"+username+"\'"+","+"\'"+password+"\'"+")";
-        Connection con = connect();
-        Statement smt= null;
-        try {
-            smt = con.createStatement();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
         try {
             smt.executeUpdate(sql);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }
-    }
-
-    public static boolean addUser(HttpServletRequest request){
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        UserService userService = new UserService();
-        User user = userService.findByUsername(username);
-        if(user!=null && Objects.equals(user.getPassword(),password)){
-            create_user(username,password);
-            return true;
-        }
-        else {
-            return false;
         }
     }
 

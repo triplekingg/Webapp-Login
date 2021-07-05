@@ -1,5 +1,6 @@
 package io.muic.ooc.webapp.security;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -54,6 +55,26 @@ public class UserService{
             s.append(String.format("%-20s",username));
         }
         return s.toString();
+    }
+
+    public boolean create_user(HttpServletRequest request){
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        try {
+            if(checkIfUserExists(username)){
+                return false;
+            }
+            else{
+                String sql = "INSERT INTO User_List(user_id, password)" + "VALUES ("+"\'"+username+"\'"+","+"\'"+password+"\'"+")";
+                Statement stmt = db.getStatement(sql);
+                stmt.executeUpdate(sql);
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 
 //    public List<String> UserTable(){

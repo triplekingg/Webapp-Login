@@ -10,6 +10,13 @@
 <h2>
     Hello ${username}
 </h2>
+
+<p>
+<form action="/add_user" method="get">
+    <button type="submit">Create a new user</button>
+</form>
+</p>
+
 <h3>
     Here are the list of users:
     ${users}
