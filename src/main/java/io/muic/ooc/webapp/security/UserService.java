@@ -1,14 +1,11 @@
 package io.muic.ooc.webapp.security;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class UserService{
     private Database db = new Database();
@@ -41,22 +38,32 @@ public class UserService{
         return user_list;
     }
 
-    public String displayUsers(){
+    public List<String> displayUsers(){
         List<String> users = new ArrayList<>();
         try {
             users = returnUserList(users);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        StringBuilder s = new StringBuilder();
-
-        s.append(String.format("%-20s\n","Users"));
-        s.append(String.format("===================\n"));
-        for(String username : users) {
-            s.append(String.format("%-20s",username));
-        }
-        return s.toString();
+        return users;
     }
+
+//    public String displayUsers(){
+//        List<String> users = new ArrayList<>();
+//        try {
+//            users = returnUserList(users);
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//        StringBuilder s = new StringBuilder();
+//
+//        s.append(String.format("%-20s\n","Users"));
+//        s.append(String.format("===================\n"));
+//        for(String username : users) {
+//            s.append(String.format("%-20s",username));
+//        }
+//        return s.toString();
+//    }
 
     public boolean create_user(HttpServletRequest request){
         String username = request.getParameter("username");
