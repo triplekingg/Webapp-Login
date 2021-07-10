@@ -1,5 +1,7 @@
 package io.muic.ooc.webapp.servlets;
 
+import io.muic.ooc.webapp.security.User;
+
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -15,7 +17,7 @@ public class HomeServlet extends AbstractRoutableHttpServlet{
         if(securityService.isAuthorized(request)){
             String username = securityService.getCurrentUsername(request);
             request.setAttribute("username",username);
-            List<String> users = userService.displayUsers();
+            List<User> users = userService.displayUsers();
             request.setAttribute("users",users);
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/home.jsp");

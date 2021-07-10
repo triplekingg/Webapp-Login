@@ -30,38 +30,42 @@
     <table class="table table-striped table-bordered">
         <thread>
             <tr>
+                <th>Id</th>
                 <th>Username</th>
+                <th>Display Name</th>
                 <th>Actions</th>
             </tr>
         </thread>
         <tbody>
         <c:forEach var ="user" items="${users}">
             <tr>
-                <td class="py-3">${user}</td>
+                <td class="py-3">${user.id}</td>
+                <td class="py-3">${user.username}</td>
+                <td class="py-3">${user.displayName}</td>
                 <td>
                     <button class="btn btn-warning btn-sm" type="button">Edit</button>
-                    <c:if test="${username!=user}">
+                    <c:if test="${username!=user.username}">
                         <!-- Button trigger modal -->
-                        <button class="btn btn-danger btn-sm" type="button" href="/user/delete?username=${user}"
+                        <button class="btn btn-danger btn-sm" type="button" href="/user/delete?username=${user.username}"
                                 data-bs-toggle="modal"
-                                data-bs-target="#delete-modal-${user}"
+                                data-bs-target="#delete-modal-${user.username}"
                         >Delete</button>
 
 
                         <!-- Modal -->
-                        <div class="modal fade" id="delete-modal-${user}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="delete-modal-${user.username}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Confirm deletion of user</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Confirm deletion of user with us</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Confirm deletion of user ${user}
+                                        Confirm deletion of user ${user.username}
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <a class="btn btn-danger" href="/user/delete?username=${user}">Delete</a>
+                                        <a class="btn btn-danger" href="/user/delete?username=${user.username}">Delete</a>
                                     </div>
                                 </div>
                             </div>

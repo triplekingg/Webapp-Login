@@ -17,7 +17,7 @@ public class UserService{
         try {
             ResultSet rs=db.getResultSet(sql);
             rs.next();
-            return new User(rs.getString(2),rs.getString(3));
+            return new User(rs.getLong(1),rs.getString(2),rs.getString(3),rs.getString(4));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -30,17 +30,17 @@ public class UserService{
         return rs.next();
     }
 
-    public List<String> returnUserList(List user_list) throws SQLException {
+    public List<User> returnUserList(List user_list) throws SQLException {
         String sql = "select * from User_List";
         ResultSet rs=db.getResultSet(sql);
         while (rs.next()){
-            user_list.add(rs.getString(2));
+            user_list.add(new User(rs.getLong(1),rs.getString(2),rs.getString(3),rs.getString(4)));
         }
         return user_list;
     }
 
-    public List<String> displayUsers(){
-        List<String> users = new ArrayList<>();
+    public List<User> displayUsers(){
+        List<User> users = new ArrayList<>();
         try {
             users = returnUserList(users);
         } catch (SQLException throwables) {
@@ -62,7 +62,6 @@ public class UserService{
         return false;
     }
 
-
 //    public String displayUsers(){
 //        List<String> users = new ArrayList<>();
 //        try {
@@ -83,13 +82,14 @@ public class UserService{
     public boolean create_user(HttpServletRequest request){
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String displayName = request.getParameter("displayName");
 
         try {
             if(checkIfUserExists(username)){
                 return false;
             }
             else{
-                String sql = "INSERT INTO User_List(user_id, password)" + "VALUES ("+"\'"+username+"\'"+","+"\'"+password+"\'"+")";
+                String sql = "INSERT INTO User_List(user_id, password, display_name)" + "VALUES ("+"\'"+username+"\'"+","+"\'"+password+"\'"+","+"\'"+displayName+"\'"+")";
                 Statement stmt = db.getStatement(sql);
                 stmt.executeUpdate(sql);
                 return true;
