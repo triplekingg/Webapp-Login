@@ -19,6 +19,7 @@ public class DeleteUserServlet extends AbstractRoutableHttpServlet{
         if(securityService.isAuthorized(request)){
             String username = securityService.getCurrentUsername(request);
             request.setAttribute("username",username);
+
             try{
                 User currentUser = userService.findByUsername(username);
                 User deleteUser = userService.findByUsername(request.getParameter("username"));

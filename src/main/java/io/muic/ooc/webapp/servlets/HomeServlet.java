@@ -20,9 +20,9 @@ public class HomeServlet extends AbstractRoutableHttpServlet{
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/home.jsp");
             requestDispatcher.include(request,response);
+            request.getSession().removeAttribute("hasError");
+            request.getSession().removeAttribute("message");
 
-            request.removeAttribute("hasError");
-            request.removeAttribute("message");
         }
         else{
             request.removeAttribute("hasError");
