@@ -30,6 +30,16 @@ public class Database {
         }
         catch(Exception e){ return null;}
     }
+    public PreparedStatement getPreparedStatement(String sql){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con= DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/User_Details","hw4","Tripleking123");
+            PreparedStatement stmt=con.prepareStatement(sql);
+            return stmt;
+        }
+        catch(Exception e){ return null;}
+    }
 
 
 

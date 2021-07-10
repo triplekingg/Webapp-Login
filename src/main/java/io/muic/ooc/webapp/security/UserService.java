@@ -1,6 +1,7 @@
 package io.muic.ooc.webapp.security;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -47,6 +48,20 @@ public class UserService{
         }
         return users;
     }
+
+    public boolean deleteUser(String username){
+        String sql = "DELETE FROM User_List as u WHERE u.user_id = ?";
+        PreparedStatement stmt = db.getPreparedStatement(sql);
+        try {
+            stmt.setString(1,username);
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
 
 //    public String displayUsers(){
 //        List<String> users = new ArrayList<>();
