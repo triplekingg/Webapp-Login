@@ -41,7 +41,31 @@
                 <td>
                     <button class="btn btn-warning btn-sm" type="button">Edit</button>
                     <c:if test="${username!=user}">
-                        <a class="btn btn-danger btn-sm" type="button" href="/user/delete?username=${user}">Delete</a>
+                        <!-- Button trigger modal -->
+                        <button class="btn btn-danger btn-sm" type="button" href="/user/delete?username=${user}"
+                                data-bs-toggle="modal"
+                                data-bs-target="#delete-modal-${user}"
+                        >Delete</button>
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="delete-modal-${user}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Confirm deletion of user</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Confirm deletion of user ${user}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <a class="btn btn-danger" href="/user/delete?username=${user}">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </c:if>
                 </td>
             </tr>
