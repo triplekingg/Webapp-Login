@@ -25,14 +25,11 @@ public class AddUserServlet extends AbstractRoutableHttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String error = "";
         //check if user is a valid user
         if(userService.create_user(request)){
             response.sendRedirect("/");
         }
         else{
-             error = "Username already exists";
-             request.setAttribute("error", error);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/add_user.jsp");
             requestDispatcher.include(request,response);
         }

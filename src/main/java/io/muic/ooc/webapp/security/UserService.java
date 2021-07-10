@@ -80,12 +80,22 @@ public class UserService{
 //    }
 
     public boolean create_user(HttpServletRequest request){
-        String username = request.getParameter("username");
+        String username = request.getParameter("username").trim();
         String password = request.getParameter("password");
-        String displayName = request.getParameter("displayName");
-
+        String displayName = request.getParameter("displayName").trim();
+        String confirmPassword = request.getParameter("confirmPassword");
+        String error="";
+        String confirmation ="";
         try {
             if(checkIfUserExists(username)){
+                error = "Username already exists";
+                request.setAttribute("error", error);
+                return false;
+            }
+
+            if(!password.equals(confirmPassword)){
+                confirmation = "Passwords don't match";
+                request.setAttribute("confirmation",confirmation);
                 return false;
             }
             else{
@@ -99,18 +109,5 @@ public class UserService{
         }
         return false;
     }
-
-//    public List<String> UserTable(){
-//        try {
-//            return  db.returnUserList(user);
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
-//        return null;
-//    }
-
-
-
-
 
 }
