@@ -35,7 +35,7 @@ public class ServletRouter {
                 httpServlet.setSecurityService(securityService);
                 httpServlet.setUserService(userService);
                 Tomcat.addServlet(ctx, servletClass.getSimpleName(), httpServlet);
-                ctx.addServletMapping(httpServlet.getPattern(), servletClass.getSimpleName());
+                ctx.addServletMappingDecoded(httpServlet.getPattern(), servletClass.getSimpleName());
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
