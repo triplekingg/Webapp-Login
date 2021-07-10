@@ -16,7 +16,7 @@ public class UserService{
         try {
             ResultSet rs=db.getResultSet(sql);
             rs.next();
-            return new User(rs.getString(1),rs.getString(2));
+            return new User(rs.getString(2),rs.getString(3));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -33,7 +33,7 @@ public class UserService{
         String sql = "select * from User_List";
         ResultSet rs=db.getResultSet(sql);
         while (rs.next()){
-            user_list.add(rs.getString(1));
+            user_list.add(rs.getString(2));
         }
         return user_list;
     }

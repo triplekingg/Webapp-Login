@@ -26,7 +26,10 @@
                 <td class="py-3">${user}</td>
                 <td>
                     <button class="btn btn-warning btn-sm" type="button">Edit</button>
-                    <button class="btn btn-danger btn-sm" type="button">Delete</button>
+                    <c:if test="${username!=user}">
+                        <button class="btn btn-danger btn-sm" type="button">Delete</button>
+                    </c:if>
+
                 </td>
             </tr>
         </c:forEach>
