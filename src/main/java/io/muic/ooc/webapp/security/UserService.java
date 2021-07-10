@@ -102,10 +102,14 @@ public class UserService{
                 String sql = "INSERT INTO User_List(user_id, password, display_name)" + "VALUES ("+"\'"+username+"\'"+","+"\'"+password+"\'"+","+"\'"+displayName+"\'"+")";
                 Statement stmt = db.getStatement(sql);
                 stmt.executeUpdate(sql);
+                request.getSession().setAttribute("hasError",false);
+                request.getSession().setAttribute("message",String.format("User %s successfully created.", username));
+
                 return true;
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (Exception e) {
+            request.getSession().setAttribute("hasError",true);
+            request.getSession().setAttribute("message",e.getMessage());
         }
         return false;
     }
