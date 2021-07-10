@@ -8,6 +8,20 @@
 <body>
 <div class="container mt-4">
     <h1 class="my-4">Hello ${username}</h1>
+    <c:if test="${not empty message}">
+        <c:choose>
+            <c:when test="${hasError}">
+                <div class="alert alert-danger" role="alert">
+                        ${message}
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="alert alert-success" role="alert">
+                        ${message}
+                </div>
+            </c:otherwise>
+        </c:choose>
+    </c:if>
     <p>
     <form action="/logout" method="get">
         <button type="submit">Logout</button>
@@ -27,9 +41,8 @@
                 <td>
                     <button class="btn btn-warning btn-sm" type="button">Edit</button>
                     <c:if test="${username!=user}">
-                        <button class="btn btn-danger btn-sm" type="button">Delete</button>
+                        <a class="btn btn-danger btn-sm" type="button" href="/user/delete?username=${user}">Delete</a>
                     </c:if>
-
                 </td>
             </tr>
         </c:forEach>

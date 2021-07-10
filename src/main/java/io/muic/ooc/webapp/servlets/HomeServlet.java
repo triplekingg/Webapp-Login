@@ -17,10 +17,16 @@ public class HomeServlet extends AbstractRoutableHttpServlet{
             request.setAttribute("username",username);
             List<String> users = userService.displayUsers();
             request.setAttribute("users",users);
+
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/home.jsp");
             requestDispatcher.include(request,response);
+
+            request.removeAttribute("hasError");
+            request.removeAttribute("message");
         }
         else{
+            request.removeAttribute("hasError");
+            request.removeAttribute("message");
             response.sendRedirect("/login");
         }
     }
