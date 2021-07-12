@@ -43,7 +43,8 @@
                 <td class="py-3">${user.username}</td>
                 <td class="py-3">${user.displayName}</td>
                 <td>
-                    <a class="btn btn-warning btn-sm" type="button" href="/edit_user?username=${user.username}">Edit</a>
+                    <a class="btn btn-warning btn-sm" type="button" href="/edit_user?username=${user.username}">Edit Display Name</a>
+                    <a class="btn btn-warning btn-sm" type="button" href="/change_password?username=${user.username}">Change Password</a>
                     <c:if test="${username!=user.username}">
                         <!-- Button trigger modal -->
                         <button class="btn btn-danger btn-sm" type="button" href="/user/delete?username=${user.username}"

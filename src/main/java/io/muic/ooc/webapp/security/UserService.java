@@ -62,22 +62,6 @@ public class UserService{
         return false;
     }
 
-//    public String displayUsers(){
-//        List<String> users = new ArrayList<>();
-//        try {
-//            users = returnUserList(users);
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
-//        StringBuilder s = new StringBuilder();
-//
-//        s.append(String.format("%-20s\n","Users"));
-//        s.append(String.format("===================\n"));
-//        for(String username : users) {
-//            s.append(String.format("%-20s",username));
-//        }
-//        return s.toString();
-//    }
 
     public boolean create_user(HttpServletRequest request){
         String username = request.getParameter("username").trim();
@@ -129,7 +113,52 @@ public class UserService{
         }
     }
 
-    public boolean edit_user(HttpServletRequest request){
+    public boolean changePasswordByUsername(String username, String password) {
+        String sql = "UPDATE User_List SET password = "+"\'"+password+"\'"+" WHERE user_id = "+"\'"+username+"\'";
+        try {
+            if(findByUsername(username)==null){
+                return false;
+            }
+            else{
+                db.getPreparedStatement(sql).executeUpdate();
+                return true;}
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean changePassword(HttpServletRequest request){
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
+        String error="";
+        try {
+            if(!confirmPassword.equals(password)){
+                error = String.format("Passwords do not match");
+                request.setAttribute("error", error);
+                return false;
+            }
+            else if(password.isEmpty() || confirmPassword.isEmpty()){
+                error = "Field cannot be empty";
+                request.setAttribute("error", error);
+            }
+
+            else if(changePasswordByUsername(username,password)){
+                request.getSession().setAttribute("message",String.format("Password of User %s successfully updated.", username));
+                return true;
+            }
+            else{
+                return false;
+            }
+        } catch (Exception e) {
+            request.getSession().setAttribute("hasError",true);
+            request.getSession().setAttribute("message",e.getMessage());
+        }
+        return false;
+    }
+
+    public boolean editUser(HttpServletRequest request){
         String username = request.getParameter("username").trim();
         String displayName = request.getParameter("displayName").trim();
         String error="";
@@ -154,5 +183,10 @@ public class UserService{
         }
         return false;
     }
+
+//    public static void main(String[] args) {
+//        UserService u = new UserService();
+//        System.out.println(u.changePasswordByUsername("tpk", "123"));
+//    }
 
 }
