@@ -10,7 +10,7 @@
 </p>
 <p>
 <form action="/edit_user" method="post">
-    <input type="text" placeholder="Enter Username" name="username" required><br>
+    <input type="hidden" name="username" value="${username}"><br>
     <input type="text" placeholder="Enter Display Name" name="displayName" required><br>
     <button type="submit">Update</button>
 </form>

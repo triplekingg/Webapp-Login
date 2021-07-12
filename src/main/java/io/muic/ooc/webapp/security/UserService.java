@@ -117,11 +117,12 @@ public class UserService{
     public boolean changeDisplayName(String username, String displayName) {
         String sql = "UPDATE User_List SET display_name = "+"\'"+displayName+"\'"+" WHERE user_id = "+"\'"+username+"\'";
         try {
-            if(!checkIfUserExists(username)){
+            if(findByUsername(username)==null){
                 return false;
             }
+            else{
             db.getPreparedStatement(sql).executeUpdate();
-            return true;
+            return true;}
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return false;
