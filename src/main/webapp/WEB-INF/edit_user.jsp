@@ -3,7 +3,7 @@
 <title>Home Page</title>
 <body>
 <p>
-    Create a New User
+    Update Display Name
 </p>
 <p>
     ${error}
@@ -12,12 +12,7 @@
 <form action="/edit_user" method="post">
     <input type="text" placeholder="Enter Username" name="username" required><br>
     <input type="text" placeholder="Enter Display Name" name="displayName" required><br>
-    <input type="password" placeholder="Enter Password" name="password" required><br>
-    <input type="password" placeholder="Confirm Password" name="confirmPassword" required><br>
-    <p>
-        ${confirmation}
-    </p>
-    <button type="submit">Create Account</button>
+    <button type="submit">Update</button>
 </form>
 </p>
 </body>

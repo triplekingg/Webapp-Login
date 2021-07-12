@@ -127,6 +127,7 @@ public class UserService{
             return false;
         }
     }
+
     public boolean edit_user(HttpServletRequest request){
         String username = request.getParameter("username").trim();
         String displayName = request.getParameter("displayName").trim();
@@ -151,12 +152,6 @@ public class UserService{
             request.getSession().setAttribute("message",e.getMessage());
         }
         return false;
-    }
-
-    public static void main(String[] args) throws SQLException {
-        UserService u = new UserService();
-        System.out.println(u.changeDisplayName("jk","kiss my ass"));
-        System.out.println(u.findByUsername("tpk").getDisplayName());
     }
 
 }

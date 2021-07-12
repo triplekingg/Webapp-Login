@@ -23,6 +23,7 @@ public class ServletRouter {
         servletClasses.add(LogoutServlet.class);
         servletClasses.add(AddUserServlet.class);
         servletClasses.add(DeleteUserServlet.class);
+        servletClasses.add(EditUserServlet.class);
     }
 
     public void init(Context ctx){
