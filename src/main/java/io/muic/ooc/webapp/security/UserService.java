@@ -114,4 +114,49 @@ public class UserService{
         return false;
     }
 
+    public boolean changeDisplayName(String username, String displayName) {
+        String sql = "UPDATE User_List SET display_name = "+"\'"+displayName+"\'"+" WHERE user_id = "+"\'"+username+"\'";
+        try {
+            if(!checkIfUserExists(username)){
+                return false;
+            }
+            db.getPreparedStatement(sql).executeUpdate();
+            return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+    }
+    public boolean edit_user(HttpServletRequest request){
+        String username = request.getParameter("username").trim();
+        String displayName = request.getParameter("displayName").trim();
+        String error="";
+        try {
+            if(!changeDisplayName(username,displayName)){
+                error = String.format("User %s does not exist.", username);
+                request.setAttribute("error", error);
+                return false;
+            }
+            else if(displayName.isEmpty()){
+                error = "Display Name cannot be empty.";
+                request.setAttribute("error", error);
+            }
+
+            else{
+                request.getSession().setAttribute("message",String.format("Display Name of User %s successfully updated.", username));
+                return true;
+            }
+        } catch (Exception e) {
+            request.getSession().setAttribute("hasError",true);
+            request.getSession().setAttribute("message",e.getMessage());
+        }
+        return false;
+    }
+
+    public static void main(String[] args) throws SQLException {
+        UserService u = new UserService();
+        System.out.println(u.changeDisplayName("jk","kiss my ass"));
+        System.out.println(u.findByUsername("tpk").getDisplayName());
+    }
+
 }
