@@ -1,5 +1,7 @@
 package io.muic.ooc.webapp.security;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import javax.servlet.http.HttpServletRequest;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -83,7 +85,7 @@ public class UserService{
                 return false;
             }
             else{
-                String sql = "INSERT INTO User_List(user_id, password, display_name)" + "VALUES ("+"\'"+username+"\'"+","+"\'"+password+"\'"+","+"\'"+displayName+"\'"+")";
+                String sql = "INSERT INTO User_List(user_id, password, display_name)" + "VALUES ("+"\'"+username+"\'"+","+"\'"+ BCrypt.hashpw(password,BCrypt.gensalt()) +"\'"+","+"\'"+displayName+"\'"+")";
                 Statement stmt = db.getStatement(sql);
                 stmt.executeUpdate(sql);
                 request.getSession().setAttribute("hasError",false);
@@ -114,7 +116,7 @@ public class UserService{
     }
 
     public boolean changePasswordByUsername(String username, String password) {
-        String sql = "UPDATE User_List SET password = "+"\'"+password+"\'"+" WHERE user_id = "+"\'"+username+"\'";
+        String sql = "UPDATE User_List SET password = "+"\'"+BCrypt.hashpw(password,BCrypt.gensalt())+"\'"+" WHERE user_id = "+"\'"+username+"\'";
         try {
             if(findByUsername(username)==null){
                 return false;
@@ -184,9 +186,9 @@ public class UserService{
         return false;
     }
 
-//    public static void main(String[] args) {
-//        UserService u = new UserService();
-//        System.out.println(u.changePasswordByUsername("tpk", "123"));
-//    }
+    public static void main(String[] args) {
+        String hashed = "$2a$10$c5DFw0FtwhxivmkiIXN2TeAD0EcclRToQjaUflECtcRr1GIWYRisG";
+        System.out.println(BCrypt.checkpw("123",hashed));
+    }
 
 }

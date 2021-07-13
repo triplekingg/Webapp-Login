@@ -1,5 +1,7 @@
 package io.muic.ooc.webapp.security;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -41,14 +43,12 @@ public class SecurityService {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         User user = userService.findByUsername(username);
-        if (user != null && Objects.equals(user.getPassword(), password)) {
+        if (user != null && BCrypt.checkpw(password,user.getPassword())){
             HttpSession session = request.getSession();
             session.setAttribute("username", username);
             return true;
         } else {
             return false;
         }
-
-
     }
 }
