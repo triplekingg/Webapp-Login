@@ -79,6 +79,18 @@ public class UserService {
                 return false;
             }
 
+            if (displayName.isEmpty()) {
+                error = "Display name cannot be empty";
+                request.setAttribute("error", error);
+                return false;
+            }
+
+            if (password.isEmpty()) {
+                error = "Password cannot be empty";
+                request.setAttribute("error", error);
+                return false;
+            }
+
             if (!password.equals(confirmPassword)) {
                 confirmation = "Passwords don't match";
                 request.setAttribute("confirmation", confirmation);

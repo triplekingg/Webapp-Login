@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<title>Home Page</title>
+<title>Create User</title>
 <body>
 <p>
     Create a New User

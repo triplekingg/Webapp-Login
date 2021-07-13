@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<title>Home Page</title>
+<title>Update Password</title>
 <body>
 <p>
     Change Password

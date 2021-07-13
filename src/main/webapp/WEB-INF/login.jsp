@@ -1,15 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<title>Home Page</title>
+<title>Webapp Login</title>
 <body>
 <p>
     ${error}
 </p>
 <p>
 <form action="/login" method="post">
-    <input type="text" placeholder="Enter Username" name="username" required><br>
-    <input type="password" placeholder="Enter Password" name="password" required><br>
-    <button type="submit">Login</button>
+    <i class="fa fa-user"></i>
+    <input type="text" class="form-control" placeholder="Enter Username" name="username" autocomplete="on" required><br>
+    <input type="password" class="form-control" placeholder="Enter Password" name="password" autocomplete="on" required><br>
+    <i class="fa fa-key"></i>
+    <button type="submit"><i class="fa fa-sign-in"></i> Login</button>
 </form>
 </p>
 </body>
