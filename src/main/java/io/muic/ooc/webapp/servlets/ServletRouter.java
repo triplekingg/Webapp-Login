@@ -16,7 +16,8 @@ import java.util.List;
 
 public class ServletRouter {
 
-    private  final List<Class<? extends AbstractRoutableHttpServlet>> servletClasses = new ArrayList<>();
+    private final List<Class<? extends AbstractRoutableHttpServlet>> servletClasses = new ArrayList<>();
+
     {
         servletClasses.add(HomeServlet.class);
         servletClasses.add(LoginServlet.class);
@@ -27,12 +28,12 @@ public class ServletRouter {
         servletClasses.add(ChangePasswordServlet.class);
     }
 
-    public void init(Context ctx){
+    public void init(Context ctx) {
         UserService userService = new UserService();
         SecurityService securityService = new SecurityService();
         securityService.setUserService(userService);
 
-        for(Class<? extends AbstractRoutableHttpServlet> servletClass:servletClasses){
+        for (Class<? extends AbstractRoutableHttpServlet> servletClass : servletClasses) {
             try {
                 AbstractRoutableHttpServlet httpServlet = servletClass.getDeclaredConstructor().newInstance();
                 httpServlet.setSecurityService(securityService);

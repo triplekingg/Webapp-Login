@@ -7,18 +7,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- *
  * @author gigadot
  */
-public class ChangePasswordServlet extends AbstractRoutableHttpServlet{
+public class ChangePasswordServlet extends AbstractRoutableHttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(securityService.isAuthorized(request)){
+        if (securityService.isAuthorized(request)) {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/change_password.jsp");
-            requestDispatcher.include(request,response);
-        }
-        else{
+            requestDispatcher.include(request, response);
+        } else {
             response.sendRedirect("/login");
         }
     }
@@ -26,12 +24,11 @@ public class ChangePasswordServlet extends AbstractRoutableHttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //check if user is a valid user
-        if(userService.changePassword(request)){
+        if (userService.changePassword(request)) {
             response.sendRedirect("/");
-        }
-        else{
+        } else {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/change_password.jsp");
-            requestDispatcher.include(request,response);
+            requestDispatcher.include(request, response);
         }
     }
 
