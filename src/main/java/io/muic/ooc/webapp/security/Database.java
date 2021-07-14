@@ -1,14 +1,25 @@
 package io.muic.ooc.webapp.security;
+import io.muic.ooc.webapp.config.ConfigProperties;
+import io.muic.ooc.webapp.config.ConfigurationLoader;
+
 import java.sql.*;
 
 public class Database {
+    Connection con;
+
+    public Database(){
+        ConfigProperties configProperties = ConfigurationLoader.load();
+        try {
+            con = DriverManager.getConnection(
+                    configProperties.getDatabaseConnectionUrl(), configProperties.getDatabaseUsername(), configProperties.getDatabasePassword());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
 
     public ResultSet getResultSet(String sql) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/User_Details", "hw4", "Tripleking123");
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             return rs;
@@ -19,9 +30,6 @@ public class Database {
 
     public Statement getStatement(String sql) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/User_Details", "hw4", "Tripleking123");
             Statement stmt = con.createStatement();
             return stmt;
         } catch (Exception e) {
@@ -31,9 +39,6 @@ public class Database {
 
     public PreparedStatement getPreparedStatement(String sql) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/User_Details", "hw4", "Tripleking123");
             PreparedStatement stmt = con.prepareStatement(sql);
             return stmt;
         } catch (Exception e) {
@@ -41,14 +46,5 @@ public class Database {
         }
     }
 
-
-    public void create_user(String username, String password, Statement smt) {
-        String sql = "INSERT INTO User_List(username, password)" + "VALUES (" + "\'" + username + "\'" + "," + "\'" + password + "\'" + ")";
-        try {
-            smt.executeUpdate(sql);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
 }
 
